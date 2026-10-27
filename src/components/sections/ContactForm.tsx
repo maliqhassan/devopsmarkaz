@@ -13,6 +13,28 @@ const budgets = ["< $1,000", "$1,000 – $5,000", "$5,000 – $15,000", "$15,000
 const inputClass =
   "w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm text-white placeholder:text-zinc-500 outline-none transition focus:border-brand-2/60 focus:bg-white/[0.05] focus:ring-4 focus:ring-brand-2/10";
 
+/** Delivers the message to site.email through Web3Forms — no mail server needed. */
+async function sendViaWeb3Forms(data: Record<string, FormDataEntryValue>, services: string[]) {
+  if (data.company_website) return; // honeypot filled: silently drop bots
+  const res = await fetch("https://api.web3forms.com/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify({
+      access_key: site.web3formsKey,
+      subject: `New project inquiry from ${data.name}`,
+      from_name: `${site.name} Website`,
+      name: data.name,
+      email: data.email,
+      phone: data.phone || "—",
+      budget: data.budget || "—",
+      services: services.length ? services.join(", ") : "—",
+      message: data.message,
+    }),
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok || !json.success) throw new Error("We couldn't send your message right now.");
+}
+
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
@@ -25,13 +47,17 @@ export function ContactForm() {
     setStatus("loading");
     setError("");
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, services: selected }),
-      });
-      const json = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(json.error ?? "Something went wrong.");
+      if (site.web3formsKey) {
+        await sendViaWeb3Forms(data, selected);
+      } else {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...data, services: selected }),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(json.error ?? "Something went wrong.");
+      }
       setStatus("success");
       form.reset();
       setSelected([]);

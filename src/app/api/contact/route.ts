@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     return Response.json({ error: "Please fill in your name, a valid email and a short message." }, { status: 400 });
   }
 
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, CONTACT_TO } = process.env;
+  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM, CONTACT_TO } = process.env;
   if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
     console.error("Contact form: SMTP environment variables are not configured.");
     return Response.json({ error: "Our mail service is temporarily unavailable." }, { status: 503 });
@@ -56,7 +56,8 @@ export async function POST(req: Request) {
 
   try {
     await transporter.sendMail({
-      from: `"${site.name} Website" <${SMTP_USER}>`,
+      // Some providers (e.g. Resend) log in with a non-email username, so the sender can be set separately.
+      from: `"${site.name} Website" <${SMTP_FROM || SMTP_USER}>`,
       to: CONTACT_TO || site.email,
       replyTo: `"${name.replace(/"/g, "")}" <${email}>`,
       subject: `New project inquiry from ${name}`,

@@ -32,6 +32,11 @@ export const site = {
   phoneHref: "tel:+923095310266",
   whatsapp: "https://wa.me/923095310266",
   location: "Islamabad, Pakistan",
+  /**
+   * Web3Forms access key for the contact form (free — get one at https://web3forms.com
+   * using the email above). It is safe to be public. Leave empty to use the SMTP route instead.
+   */
+  web3formsKey: "6864ff44-fd47-41cb-83cd-6cfd15a75f87",
   founded: 2020,
   socials: {
     facebook: "https://web.facebook.com/profile.php?id=100089921243812",
@@ -197,6 +202,17 @@ export const projects: Project[] = [
     url: "https://theonetourismuae.com/",
     tags: ["Travel", "UAE", "Lead Generation"],
     featured: true,
+  },
+  {
+    slug: "bidline",
+    title: "Bid Line Estimating Solutions",
+    kind: "Website",
+    category: "Construction Estimating",
+    description:
+      "A high-converting site for a US construction estimating firm — CSI-organized takeoffs and cost estimates for GCs and subcontractors, with free-quote funnels and an animated estimate preview.",
+    image: "/projects/bidline.jpg",
+    url: "https://www.bidlineestimatingsolutions.com/",
+    tags: ["Lead Generation", "Animated UI", "Responsive"],
   },
   {
     slug: "translita",
