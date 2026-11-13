@@ -5,12 +5,12 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 import { faqs } from "@/lib/site";
 
-export function FAQ() {
+export function FAQ({ items = faqs }: { items?: { q: string; a: string }[] }) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
     <div className="divide-y divide-white/[0.06] rounded-3xl border border-line bg-surface/60">
-      {faqs.map((f, i) => {
+      {items.map((f, i) => {
         const isOpen = open === i;
         return (
           <div key={f.q}>

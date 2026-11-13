@@ -48,6 +48,7 @@ export const navLinks = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
   { href: "/projects", label: "Projects" },
+  { href: "/apps", label: "Apps" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact Us" },
 ] as const;
@@ -221,9 +222,9 @@ export const projects: Project[] = [
     category: "Mobile App · Education",
     description:
       "Translate 85+ languages even without internet, with downloadable language packs and Fabalita, an AI coach that teaches you to speak them.",
-    image: "/projects/apps/translita-1.png",
+    image: "/apps/translita/screen-1.png",
     icon: "/projects/apps/translita-icon.png",
-    screens: ["/projects/apps/translita-1.png", "/projects/apps/translita-2.png"],
+    screens: ["/apps/translita/screen-1.png", "/apps/translita/screen-2.png"],
     url: "https://play.google.com/store/apps/details?id=com.translita.app",
     tags: ["Android", "Offline AI", "85+ Languages"],
     featured: true,
@@ -235,9 +236,9 @@ export const projects: Project[] = [
     category: "Mobile App · Productivity",
     description:
       "Block distracting apps with a strict lock timer that can't be ended early, set daily time limits, and see exactly where your screen time goes.",
-    image: "/projects/apps/unbreakable-v2-1.png",
+    image: "/apps/unbreakable/screen-1.png",
     icon: "/projects/apps/unbreakable-icon.png",
-    screens: ["/projects/apps/unbreakable-v2-1.png", "/projects/apps/unbreakable-v2-2.png"],
+    screens: ["/apps/unbreakable/screen-1.png", "/apps/unbreakable/screen-2.png"],
     url: "https://play.google.com/store/apps/details?id=com.unbreakablelock.app",
     tags: ["Android", "Strict Lock", "Screen Time Insights"],
     featured: true,
@@ -249,9 +250,9 @@ export const projects: Project[] = [
     category: "Mobile App · Finance",
     description:
       "An offline expense tracker and budget planner — log spending in a few taps, set category budgets, stay ahead of bills and subscriptions, and see monthly trends. No bank login needed.",
-    image: "/projects/apps/moneymanager-1.png",
+    image: "/apps/money-manager/screen-1.png",
     icon: "/projects/apps/moneymanager-icon.png",
-    screens: ["/projects/apps/moneymanager-1.png", "/projects/apps/moneymanager-2.png"],
+    screens: ["/apps/money-manager/screen-1.png", "/apps/money-manager/screen-2.png"],
     url: "https://play.google.com/store/apps/details?id=com.expensemanage.app",
     tags: ["Android", "Offline-first", "Budget Planner"],
   },

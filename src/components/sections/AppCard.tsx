@@ -1,29 +1,22 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
+import { GooglePlayLogo } from "@/components/ui/GooglePlayBadge";
 import type { Project } from "@/lib/site";
 
 const spring = { type: "spring", stiffness: 200, damping: 20 } as const;
+const MotionLink = motion.create(Link);
 
-function GooglePlayIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-      <path d="M3.6 1.8a1.5 1.5 0 0 0-.6 1.2v18a1.5 1.5 0 0 0 .6 1.2l10.1-10.2L3.6 1.8Zm11.5 8.8L5.4 1.1l11.9 6.9-2.2 2.6Zm0 2.8 2.2 2.6-11.9 6.9 9.7-9.5Zm5.3-3.3-2.7-1.5-2.4 2.9 2.4 2.9 2.7-1.6a1.5 1.5 0 0 0 0-2.7Z" />
-    </svg>
-  );
-}
-
-/** Mobile app card: icon, store badge and two phone screens that fan out on hover. */
+/** Mobile app card: icon, store badge and two phone screens that fan out on hover. Opens the app's page. */
 export function AppCard({ project }: { project: Project }) {
   const [front, back] = project.screens ?? [project.image];
 
   return (
-    <motion.a
-      href={project.url}
-      target="_blank"
-      rel="noopener noreferrer"
+    <MotionLink
+      href={`/apps/${project.slug}`}
       initial="rest"
       whileHover="hover"
       animate="rest"
@@ -70,7 +63,7 @@ export function AppCard({ project }: { project: Project }) {
         </div>
 
         <span className="absolute bottom-4 right-4 z-20 inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-2 text-xs font-semibold text-ink shadow-lg">
-          <GooglePlayIcon className="size-3.5" /> Get it on Google Play
+          <GooglePlayLogo className="size-3.5" /> On Google Play
         </span>
       </div>
 
@@ -80,7 +73,7 @@ export function AppCard({ project }: { project: Project }) {
             {project.category}
           </span>
           <span className="hidden shrink-0 items-center gap-1 text-xs text-zinc-500 transition-colors group-hover:text-white sm:inline-flex">
-            View on Play Store <ArrowUpRight className="size-3.5" />
+            Explore app <ArrowUpRight className="size-3.5" />
           </span>
         </div>
         <h3 className="mt-4 font-display text-xl font-semibold text-white">{project.title}</h3>
@@ -93,6 +86,6 @@ export function AppCard({ project }: { project: Project }) {
           ))}
         </div>
       </div>
-    </motion.a>
+    </MotionLink>
   );
 }
