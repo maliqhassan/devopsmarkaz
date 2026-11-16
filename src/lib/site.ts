@@ -257,6 +257,19 @@ export const projects: Project[] = [
     tags: ["Android", "Offline-first", "Budget Planner"],
   },
   {
+    slug: "evenly",
+    title: "Evenly Split – Shared Expenses",
+    kind: "Mobile App",
+    category: "Mobile App · Finance",
+    description:
+      "Split bills with friends, flatmates and trips — five ways to split, one clear balance per person, and settle up in a tap. Never moves money or asks for bank details.",
+    image: "/apps/evenly/screen-1.png",
+    icon: "/projects/apps/evenly-icon.png",
+    screens: ["/apps/evenly/screen-1.png", "/apps/evenly/screen-2.png"],
+    url: "https://play.google.com/store/apps/details?id=com.evenlysplit.app",
+    tags: ["Android", "Group Expenses", "8 Languages"],
+  },
+  {
     slug: "tourism",
     title: "Travel & Tourism Booking Platform",
     kind: "Web App",
