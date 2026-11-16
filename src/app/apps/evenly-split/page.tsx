@@ -7,6 +7,7 @@ import { ScreenGallery } from "@/components/apps/ScreenGallery";
 import { ArrowLeft, Download } from "lucide-react";
 import { EvenlyInvite } from "@/components/apps/EvenlyInvite";
 import { GooglePlayLogo } from "@/components/ui/GooglePlayBadge";
+import { LogoMark } from "@/components/ui/Logo";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/Reveal";
 import { site } from "@/lib/site";
 
@@ -147,6 +148,16 @@ export default function EvenlySplitPage() {
       )}
 
       <div className="mx-auto max-w-5xl px-4 pb-12">
+      <Reveal>
+        <div className="mt-12 flex flex-col items-center gap-4 rounded-[22px] border border-[#BADFC6]/15 bg-[#1d241f] px-6 py-6 text-center sm:flex-row sm:text-left">
+          <LogoMark className="h-10 w-auto shrink-0" />
+          <p className="text-sm leading-relaxed text-[#AFC2B4]">
+            <span className="font-semibold text-white">Developed by DevOps Markaz Tech</span> in collaboration with{" "}
+            <span className="font-semibold text-white">Muhammad Hamza Shakeel</span> and team. Published on Google Play
+            under Muhammad Hamza Shakeel&apos;s developer account.
+          </p>
+        </div>
+      </Reveal>
       {!PLAY_URL && hasApk && (
         <p className="mt-7 text-center text-[13px] leading-relaxed text-zinc-500">
           Downloading the APK? Android will ask you to allow installs from your browser the first time. Evenly needs Android 7
