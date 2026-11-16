@@ -1,7 +1,9 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
+import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ScreenGallery } from "@/components/apps/ScreenGallery";
 import { ArrowLeft, Download } from "lucide-react";
 import { EvenlyInvite } from "@/components/apps/EvenlyInvite";
 import { GooglePlayLogo } from "@/components/ui/GooglePlayBadge";
@@ -20,6 +22,10 @@ const ICON = `${BASE}/evenly-icon.png`;
 
 /** Checked at build time, so files added later appear on the next deploy without code changes. */
 const hasFile = (file: string) => existsSync(path.join(process.cwd(), "public", file));
+
+/** Store screenshots: public/apps/evenly-split/screens/screen-1.png … screen-8.png (any that exist are shown, in order). */
+const evenlyScreens = () =>
+  Array.from({ length: 8 }, (_, i) => `${BASE}/screens/screen-${i + 1}.png`).filter(hasFile);
 
 const features = [
   { title: "Split any way", text: "Equally, by exact amounts, percentages, shares or item by item." },
@@ -51,11 +57,13 @@ export function generateMetadata(): Metadata {
 export default function EvenlySplitPage() {
   const hasIcon = hasFile(ICON);
   const hasApk = hasFile(APK_URL);
+  const screens = evenlyScreens();
   const getUrl = PLAY_URL || `${site.url}${APK_URL}`;
   const legalLinks = legal.filter((l) => hasFile(l.href));
 
   return (
-    <div className="mx-auto max-w-5xl px-4 pb-12 pt-28 md:pt-36">
+    <>
+    <div className="mx-auto max-w-5xl px-4 pt-28 md:pt-36">
       <Reveal>
         <Link href="/apps" className="mb-6 inline-flex items-center gap-2 text-sm text-zinc-400 transition hover:text-white">
           <ArrowLeft className="size-4" /> Our Apps
@@ -123,7 +131,22 @@ export default function EvenlySplitPage() {
           </StaggerItem>
         ))}
       </Stagger>
+      </div>
 
+      {screens.length > 0 && (
+        <section className="pt-20" style={{ "--accent": "#BADFC6" } as CSSProperties}>
+          <Reveal className="text-center">
+            <h2 className="font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+              Take a look <span className="text-[#BADFC6]">inside</span>
+            </h2>
+          </Reveal>
+          <div className="mt-10">
+            <ScreenGallery screens={screens} name="Evenly" />
+          </div>
+        </section>
+      )}
+
+      <div className="mx-auto max-w-5xl px-4 pb-12">
       {!PLAY_URL && hasApk && (
         <p className="mt-7 text-center text-[13px] leading-relaxed text-zinc-500">
           Downloading the APK? Android will ask you to allow installs from your browser the first time. Evenly needs Android 7
@@ -142,6 +165,7 @@ export default function EvenlySplitPage() {
           ))}
         </p>
       )}
-    </div>
+      </div>
+    </>
   );
 }
